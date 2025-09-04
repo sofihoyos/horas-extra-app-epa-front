@@ -1,0 +1,41 @@
+<div class="login-container">
+  <div class="login-form">
+    <div class="logo-container">
+      <img src="https://epa.gov.co/images/imagenes/LOGO_EPA.png" alt="Logo EPA" class="logo-img">
+    </div>
+    <h2>INICIAR SESIÓN</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="login-email">Email:</label>
+        <input
+          type="email"
+          id="login-email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          class="form-control"
+          placeholder="Ingresa tu email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Contraseña:</label>
+        <input
+          type="password"
+          id="login-password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          class="form-control"
+          placeholder="Ingresa tu contraseña">
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn-primary">Iniciar Sesión</button>
+      </div>
+      <div *ngIf="error" class="form-error">
+        {{ error }}
+      </div>
+      <div class="form-link">
+        <p>Si no recuerda su contraseña haga click <a href="">Aqui</a></p>
+      </div>
+    </form>
+  </div>
+</div>
