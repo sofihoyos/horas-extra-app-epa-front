@@ -1,0 +1,20 @@
+<div class="relative flex items-center justify-between h-16 bg-[#09356e]">
+  <span class="text-white text-xl font-semibold !ml-4">Horas Extras - EPA</span>
+
+  <div #menuContainer class="relative cursor-pointer" (click)="toggleMenu($event)">
+    <mat-icon style="color: white" class="w-15 h-15 !mr-2">account_circle</mat-icon>
+    <div
+      #menuDropdown
+      *ngIf="mostrarMenuUsuario"
+      class="absolute right-0 top-full !mt-2 w-48 bg-white rounded-md shadow-lg !py-1 z-10"
+    >
+      <a
+        (click)="cerrarSesion()"
+        class="flex items-center gap-2 !px-4 !py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+      >
+        <mat-icon>logout</mat-icon>
+        Cerrar Sesión
+      </a>
+    </div>
+  </div>
+</div>

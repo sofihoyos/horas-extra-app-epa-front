@@ -1,13 +1,29 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+// Angular Material
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatOptionModule } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,LoginPageComponent],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    FormsModule,         // ✅ necesario para [(ngModel)]
+    MatSnackBarModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatOptionModule      // ✅ necesario para <mat-option>
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('horas-extra-app-epa-front');
-}
+export class App {}

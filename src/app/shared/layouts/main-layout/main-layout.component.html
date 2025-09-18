@@ -1,0 +1,25 @@
+<div class="flex h-screen">
+  <!-- Sidebar izquierdo fijo -->
+  <aside class="w-1/6 shadow-md flex flex-col justify-between !p-2 border-r border-gray-300 ">
+    <app-side-menu></app-side-menu>
+  </aside>
+
+  <div class="flex flex-col flex-1">
+    <!-- Header Principal -->
+    <div class="flex-none">
+      <app-navbar></app-navbar>
+    </div>
+    
+
+    <!-- Área de contenido que cambia -->
+    <main class="flex flex-1 !p-4 overflow-auto justify-center items-center ">
+      <!-- Aquí se cargan las diferentes páginas -->
+      <router-outlet />
+    </main>
+
+    <!-- Footer fijo -->
+    <footer class="flex-none">
+      <app-footer></app-footer>
+    </footer>
+  </div>
+</div>

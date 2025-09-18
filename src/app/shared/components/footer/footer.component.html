@@ -1,0 +1,65 @@
+<footer class="flex justify-between items-center flex-wrap bg-[#09356e] text-white text-sm my-8 mx-4 h-30 w-full">
+    <div class="flex-1 text-center">
+        © {{ currentYear }} Empresas Públicas de Armenia E.S.P.
+    </div>
+    <div class="flex-1 text-center">
+        Horas Extras - EPA <br>
+        <a (click)="abrirTerminos()" class="text-[#a3d4ff] underline ml-0.5 cursor-pointer">Términos, Condiciones de uso y Aviso Legal.</a> 
+    </div>
+    <div class="flex-1 text-center text-white">
+        <div class="font-semibold mb-1">Contacto de Soporte:</div>
+
+        <!-- Línea de correo -->
+        <div class="flex justify-center items-center gap-2 mb-1">
+            <img src="mail_white.png" alt="Correo" class="w-[20px] h-[20px]" />
+            <a href="mailto:redes.tic@epa.gov.co" class="underline hover:text-blue-300">
+            redes.tic@epa.gov.co
+            </a>
+        </div>
+
+        <!-- Línea de teléfono -->
+        <div class="flex justify-center items-center gap-2">
+            <img src="phone_white.png" alt="Teléfono" class="w-[20px] h-[20px]" />
+            <span>Tel: (606) 741 17 80 Ext. 1512 - 1513</span>
+        </div>
+    </div>
+
+    
+</footer>
+<!-- Modal para términos --> 
+ <div *ngIf="mostrarTerminos" class="fixed top-0 left-0 w-screen h-screen bg-black/35 flex justify-center items-center z-50" 
+ (click)="cerrarTerminos()"> 
+     <div class="bg-white rounded-lg max-w-2xl w-full  shadow-lg relative" 
+     (click)="$event.stopPropagation()"> 
+        <button (click)="cerrarTerminos()" class="absolute top-2 right-3 text-xl">
+            ✕
+        </button> 
+        <h2 class="text-2xl font-bold !m-4 text-[#09356e]">TERMINOS Y CONDICIONES DE USO</h2> 
+        <div class="space-y-3 max-h-[70vh] overflow-y-auto !m-4 "> 
+            <p><strong>HORAS EXTRA</strong> es una plataforma desarrollada para uso exclusivo de la Dirección TIC de Empresas Públicas de Armenia E.S.P.</p> 
+            <br><p>El uso de esta plataforma implica la aceptación de los siguientes términos:</p> 
+            
+            <h3 class="text-[#09356e] font-bold !mt-4">Titularidad</h3> 
+            <p>PLAT-EPA es de propiedad exclusiva de Empresas Públicas de Armenia E.S.P., ubicada en Armenia, Quindío, Colombia.</p> 
+            
+            <h3 class="text-[#09356e] font-bold !mt-4">Acceso</h3> 
+            <p>El acceso es restringido al personal autorizado de la entidad. Cualquier uso indebido está prohibido y será sancionado.</p> <h3>Uso</h3> <p>El usuario podrá consultar, gestionar y administrar información institucional de forma segura y responsable.</p> 
+            
+            <h3 class="text-[#09356e] font-bold !mt-4">Propiedad Intelectual</h3> 
+            <p>Todos los contenidos de PLAT-EPA son propiedad intelectual de EPA E.S.P. y no podrán ser reproducidos sin autorización.</p> 
+            
+            <h3 class="text-[#09356e] font-bold !mt-4">Responsabilidad</h3> 
+            <p>EPA E.S.P. no se hace responsable por el uso indebido de la información por parte de terceros o personal no autorizado.</p> 
+            
+            <h3 class="text-[#09356e] font-bold !mt-4">Modificaciones</h3> 
+            <p>EPA E.S.P. se reserva el derecho a modificar los términos en cualquier momento sin previo aviso.</p> 
+            
+            <h3 class="text-[#09356e] font-bold !mt-4">Aviso Legal</h3> 
+            <p>Esta plataforma cumple con las normas colombianas en materia de protección de datos y acceso a la información pública.</p> 
+        </div> 
+        
+        <div class="text-center !m-4"> 
+            <button class="bg-[#09356e] text-white !px-4 !py-2 rounded hover:bg-blue-800">Cerrar</button> 
+        </div> 
+    </div> 
+ </div>

@@ -1,0 +1,30 @@
+<div class="flex flex-col items-center justify-center w-full ">
+  <div class="max-h-[500px] overflow-y-auto bg-white shadow-md rounded-lg w-md !p-6">
+    <div *ngIf="isLoading" class="text-center py-8 text-gray-500">Cargando...</div>
+  
+    <div *ngIf="error" class="text-center py-8 text-red-500">
+      {{ error }}
+    </div>
+  
+    <table *ngIf="!isLoading && !error" class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead class="bg-[#002d72] h-6 text-left text-sm font-semibold text-white uppercase !px-3">
+        <tr>
+          <th class="!px-4">Nombre</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr class="hover:bg-gray-50 transition-colors" *ngFor="let cargo of cargos">
+          <td class="!px-4 font-medium text-gray-900">
+            {{ cargo.name }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="!isLoading && !error && cargos.length === 0" class="text-center py-8 text-gray-500">
+      No se encontraron cargos.
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,23 @@
+.funcionarios-container{
+    padding: 2rem ;
+    background-color: #f4f6fa;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.titulo{
+    text-align: center;
+    color: #002d72;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.modulos-grid {
+    margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+

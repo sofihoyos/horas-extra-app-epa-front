@@ -1,0 +1,54 @@
+label{
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+    display: block;
+    padding-top: 1.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input::placeholder {
+    color: #b3afaf;
+}
+
+select {
+  appearance: none; /* Quita estilos por defecto del navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #fff;
+  border: 2px solid #ccc; /* Indigo */
+  border-radius: 8px;
+  padding: 10px 40px 10px 15px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+select:hover {
+  border-color: #002d72; /* Azul más fuerte */
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 5px #17489d;
+}
+
+.select-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4f46e5;
+  pointer-events: none; /* evita que bloquee clics */
+}

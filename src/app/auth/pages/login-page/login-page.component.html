@@ -1,9 +1,9 @@
-<div class="login-container">
-  <div class="login-form">
-    <div class="logo-container">
-      <img src="https://epa.gov.co/images/imagenes/LOGO_EPA.png" alt="Logo EPA" class="logo-img">
+<div class="w-screen flex justify-center place-items-center min-h-screen bg-[#002d72]">
+  <div class="bg-white !p-8 rounded-2xl shadow-lg shadow-gray-900 w-96 font-sans">
+    <div class="flex flex-col items-center !m-4">
+      <img src="https://epa.gov.co/images/imagenes/LOGO_EPA.png" alt="Logo EPA" class="w-full h-auto" />
     </div>
-    <h2>INICIAR SESIÓN</h2>
+    <h2 class="text-center !my-6 font-bold text-xl text-[#002d72]">INICIAR SESIÓN</h2>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="login-email">Email:</label>
@@ -11,30 +11,36 @@
           type="email"
           id="login-email"
           name="email"
-          [(ngModel)]="email"
+          [(ngModel)]="loginData.email"
           required
           class="form-control"
-          placeholder="Ingresa tu email">
+          placeholder="Ingresa tu email"
+        />
       </div>
+
       <div class="form-group">
         <label for="login-password">Contraseña:</label>
         <input
           type="password"
           id="login-password"
           name="password"
-          [(ngModel)]="password"
+          [(ngModel)]="loginData.password"
           required
           class="form-control"
-          placeholder="Ingresa tu contraseña">
+          placeholder="Ingresa tu contraseña"
+        />
       </div>
+
       <div class="form-buttons">
         <button type="submit" class="btn-primary">Iniciar Sesión</button>
       </div>
-      <div *ngIf="error" class="form-error">
+
+      <span class="text-red-600 text-center block !mt-4">
         {{ error }}
-      </div>
+      </span>
+
       <div class="form-link">
-        <p>Si no recuerda su contraseña haga click <a href="">Aqui</a></p>
+        <p>Si no recuerda su contraseña haga click <a [routerLink]="['/forgot-password']">Aquí</a></p>
       </div>
     </form>
   </div>

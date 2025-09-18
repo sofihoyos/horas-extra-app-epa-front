@@ -1,0 +1,23 @@
+<div class="container">
+  <h2 class="titulo">FUNCIONARIOS</h2>
+
+  <div class="modulos-grid" *ngIf="isBaseRoute">
+    <dashboard-card
+      titulo="CREAR FUNCIONARIO"
+      routerLink="crearFuncionario"
+      textoBoton="Crear"
+      nameIcon="add"
+    >
+    </dashboard-card>
+
+    <dashboard-card
+      titulo="LISTAR FUNCIONARIOS"
+      routerLink="listarFuncionario"
+      textoBoton="Listar"
+      nameIcon="list"
+    >
+    </dashboard-card>
+  </div>
+  
+  <router-outlet></router-outlet>
+</div>

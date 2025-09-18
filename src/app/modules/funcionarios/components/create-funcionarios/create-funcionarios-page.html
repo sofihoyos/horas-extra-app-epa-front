@@ -1,0 +1,40 @@
+<div class="flex flex-col items-center justify-center w-full ">
+  <form
+    action=""
+    class="bg-[#fff] rounded-xl shadow-md max-w-lg w-2xl !m-3 !px-8 !py-6  flex flex-col justify-center items-center"
+  >
+    <h1 class="font-bold text-xl text-[#002d72]">Crear Funcionario</h1>
+    <div class="grid grid-cols-2 gap-8 !mt-4 w-full">
+      <div>
+        <label for="nombre">Nombre</label> 
+        <input type="text" id="nombre" name="nombre" placeholder="Digite su nombre completo" [(ngModel)] = "newFuncionario.nombre_completo"/>
+      </div>
+  
+      <div>
+        <label for="identificacion">N° Identificacion</label> 
+        <input type="text" id="identificacion" name="identificacion" placeholder="Identificacion" [(ngModel)] = "newFuncionario.identificacion"/>
+      </div>
+  
+      <div>
+        <label for="cargo">Cargo</label>
+        <select id="cargo" name="cargo" [(ngModel)]="newFuncionario.Cargo">
+          <option value="" disabled selected>Seleccione un cargo</option>
+          <option *ngFor="let cargo of cargos" [value]="cargo._id">{{ cargo.name }}</option>
+        </select>
+      </div>
+  
+      <div>
+        <label for="">Tipo de Operario</label>
+        <select name="Tipoe_Operario" id="" [(ngModel)] = "newFuncionario.tipoOperario">
+          <option value="">Seleccione </option>
+          <option value="Planta">Planta</option>
+          <option value="Temporal">Temporal</option>
+        </select>
+      </div>
+    </div>
+    <button class="bg-[#002d72] text-white !px-4 !py-2 rounded !mt-7 hover:bg-[#17489d]" type="submit" (click)="saveFuncionario()">
+      Crear
+    </button>
+  </form>
+
+</div>

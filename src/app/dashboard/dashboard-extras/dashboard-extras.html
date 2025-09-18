@@ -1,0 +1,21 @@
+<div class="container">
+  <h2 class="titulo">EXTRAS</h2>
+
+  <div class="modulos-grid" *ngIf="isBaseRoute">
+    <dashboard-card
+    titulo="CREAR EXTRAS"
+    routerLink="crearExtra"
+    textoBoton="Crear"
+    nameIcon="add"
+    ></dashboard-card>
+
+    <dashboard-card
+    titulo="LISTAR EXTRAS"
+    routerLink="listarExtra"
+    textoBoton="Listar"
+    nameIcon="list"
+    ></dashboard-card>
+  </div>
+
+  <router-outlet ></router-outlet>
+</div>

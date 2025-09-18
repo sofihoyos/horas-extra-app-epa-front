@@ -1,0 +1,30 @@
+.menu li {
+  margin: 0.5rem 0;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 1rem;
+  color: #09356e;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu a img{
+  width: 20px;
+  height: 20px;
+  color: #09356e;
+}
+
+.menu a:hover {
+  margin-left: 1rem;
+  background-color: #f0f4ff;
+  color: #002d72;
+}
+
+

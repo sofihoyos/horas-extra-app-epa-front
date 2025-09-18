@@ -1,0 +1,208 @@
+<div class="flex flex-col items-center justify-center w-full">
+  <h2>Listado de Horas Extras</h2>
+
+  <div class="flex flex-row items-center justify-center w-full gap-4 !mb-4">
+    <input
+      type="text"
+      placeholder="Buscar por ID de Funcionario"
+      [(ngModel)]="filtroIdentificacion"
+      class="border !px-2 !py-1 rounded-md"
+    />
+    <input
+      type="date"
+      placeholder="Fecha de Inicio"
+      [(ngModel)]="filtroFechaInicio"
+      class="border !px-2 !py-1 rounded-md"
+    />
+    <input
+      type="date"
+      placeholder="Fecha de Fin"
+      [(ngModel)]="filtroFechaFin"
+      class="border !px-2 !py-1 rounded-md"
+    />
+    <button
+      (click)="buscarRegistros()"
+      class="bg-[#002d72] hover:bg-blue-700 text-white !px-3 !py-2 rounded-lg cursor-pointer"
+    >
+      <mat-icon>search</mat-icon> Buscar
+    </button>
+    <button
+      (click)="getTodosLosRegistros()"
+      class="bg-[#002d72] hover:bg-blue-700 text-white !px-3 !py-2 rounded-lg cursor-pointer"
+    >
+      <mat-icon>refresh</mat-icon> Mostrar Todos
+    </button>
+    <button
+      (click)="exportarExcel()"
+      class="bg-green-600 hover:bg-green-700 text-white !px-3 !py-2 rounded-lg cursor-pointer"
+    >
+      <mat-icon>download</mat-icon> Exportar Excel
+    </button>
+  </div>
+
+  <div *ngIf="apiMessage" class="message" [ngClass]="{ success: apiSuccess, error: !apiSuccess }">
+    {{ apiMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Cargando registros...</p>
+  </div>
+
+  <div class="max-h-[500px] overflow-y-auto bg-white shadow-md rounded-lg w-400 !p-6 lg:w-250">
+    <table class="w-250 divide-y divide-gray-200 text-sm">
+      <thead class="bg-[#002d72] h-7 text-left text-sm font-semibold text-white uppercase !px-3">
+        <tr>
+          <th>Identificación</th>
+          <th>Nombre Funcionario</th>
+          <th>Fecha y Hora de Inicio</th>
+          <th>Fecha y Hora de Fin</th>
+          <th>Descanso</th>
+          <th>HEDO</th>
+          <th>HENO</th>
+          <th>HEDF</th>
+          <th>HENF</th>
+          <th>Total Horas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let extra of horasExtras" class="hover:bg-gray-50 transition-colors">
+          <td class="px-3 py-2">{{ extra.FuncionarioAsignado!.identificacion }}</td>
+          <td class="px-3 py-2">{{ extra.FuncionarioAsignado!.nombre_completo }}</td>
+          <td class="px-3 py-2">
+            {{ extra.fecha_inicio_trabajo | date : 'dd/MM/yyyy' : 'UTC'  }} -
+            {{ extra.hora_inicio_trabajo }}
+          </td>
+          <td class="px-3 py-2">
+            {{ extra.fecha_fin_trabajo | date : 'dd/MM/yyyy' : 'UTC'  }} - {{ extra.hora_fin_trabajo }}
+          </td>
+          <td class="px-3 py-2">
+            <ng-container *ngIf="extra.fecha_inicio_descanso">
+              {{ extra.fecha_inicio_descanso | date : 'dd/MM/yyyy' : 'UTC' }} -
+              {{ extra.hora_inicio_descanso }} a
+              {{ extra.fecha_fin_descanso | date : 'dd/MM/yyyy' : 'UTC'  }} - {{ extra.hora_fin_descanso }}
+            </ng-container>
+            <span *ngIf="!extra.fecha_inicio_descanso">N/A</span>
+          </td>
+          <td class="px-3 py-2">{{ extra.HEDO }}</td>
+          <td class="px-3 py-2">{{ extra.HENO }}</td>
+          <td class="px-3 py-2">{{ extra.HEDF }}</td>
+          <td class="px-3 py-2">{{ extra.HENF }}</td>
+          <td class="px-3 py-2">{{ extra.horas_extras }}</td>
+          <td class="px-3 py-2">
+            <button
+              (click)="abrirModal(extra)"
+              class="action-btn edit-btn cursor-pointer mr-2 text-blue-600 hover:text-blue-800"
+              title="Editar registro"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              (click)="  abrirModalConfirmacion(extra._id!)"
+              class="action-btn delete-btn cursor-pointer text-red-600 hover:text-red-800"
+              title="Eliminar registro"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div
+      *ngIf="horasExtras.length === 0 && !isLoading"
+      class="no-data-message p-4 text-center text-gray-500"
+    >
+      {{ apiMessage || 'No se encontraron registros.' }}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mostrarModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="text-[#002d72] text-bold">Actualizar Hora Extra</h2>
+      <button class="close-button" (click)="cerrarModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="actualizarHoraExtra()">
+        <div class="form-group">
+          <label for="nombre_completo">Fecha Inicio de Trabajo</label>
+          <input
+            type="date"
+            id="fecha_inicio_trabajo"
+            name="fecha_inicio_trabajo"
+            [(ngModel)]="extraSeleccionada!.fecha_inicio_trabajo"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="identificacion">Hora Inicio de Trabajo</label>
+          <input
+            type="time"
+            id="hora_inicio_trabajo"
+            name="hora_inicio_trabajo"
+            [(ngModel)]="extraSeleccionada!.hora_inicio_trabajo"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="fecha_fin_trabajo">Fecha Fin de Trabajo</label>
+          <input
+            type="date"
+            id="fecha_fin_trabajo"
+            name="fecha_fin_trabajo"
+            [(ngModel)]="extraSeleccionada!.fecha_fin_trabajo"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="hora_fin_trabajo">Hora Fin de Trabajo</label>
+          <input
+            type="time"
+            id="hora_fin_trabajo"
+            name="hora_fin_trabajo"
+            [(ngModel)]="extraSeleccionada!.hora_fin_trabajo"
+            required
+          />
+        </div>
+        <button type="submit" class="bg-[#002d72] !px-4 !py-2 rounded-md cursor-pointer text-white">Guardar Cambios</button>
+      </form>
+      <div
+        *ngIf="apiMessage"
+        class="api-message"
+        [ngClass]="{ success: apiSuccess, error: !apiSuccess }"
+      >
+        {{ apiMessage }}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="mostrarModalConfirmacion" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="text-[#002d72] text-bold">Confirmar Eliminación</h2>
+      <button class="close-button" (click)="cancelarEliminacion()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de que quieres eliminar este registro de horas extras? Esta acción no se puede deshacer.</p>
+      <div class="flex justify-end mt-4">
+        <button
+          (click)="cancelarEliminacion()"
+          class="bg-gray-400 hover:bg-gray-500 text-white !px-4 !py-2 rounded-md cursor-pointer mr-2"
+        >
+          Cancelar
+        </button>
+        <button
+          (click)="confirmarEliminacion()"
+          class="bg-red-600 hover:bg-red-700 text-white !px-4 !py-2 rounded-md cursor-pointer"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="flex flex-col items-center justify-center w-full ">
+  <form
+    (ngSubmit)="saveCargo()"
+    class="bg-[#fff] rounded-xl shadow-md w-2xl h-100 !px-8 !py-6 flex flex-col justify-center items-center"
+  >
+    <div class="font-bold text-[#002d72] text-2xl">Crear cargo</div>
+  
+    <label for="nombre">Nombre</label>
+    <br />
+    <input type="text" name="nombre" id="nombre" [(ngModel)]="newCargo.name" />
+  
+    <button class="bg-[#002d72] text-white !px-4 !py-2 rounded !mt-7 hover:bg-[#17489d]" type="submit" (click)="guardar()">Crear</button>
+  </form>
+
+</div>

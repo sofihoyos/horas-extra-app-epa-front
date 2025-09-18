@@ -1,0 +1,72 @@
+<div class="flex items-center justify-center  w-full bg-[#f4f6f8] text-center">
+  <div class="bg-[#fff] !p-8 rounded-2xl shadow-xl w-100">
+    <div class="!mb-5 justify-items-center">
+      <img
+        src="https://epa.gov.co/images/imagenes/LOGO_EPA.png"
+        alt="Logo EPA"
+        class="w-30 h-25"
+      />
+    </div>
+    <h2 class="!mb-[20px] text-[#002d72] text-2xl font-semibold">REGISTRAR USUARIOS</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="register-name">Nombre completo:</label>
+        <input
+          type="text"
+          id="register-name"
+          name="name"
+          required
+          class="form-control"
+          placeholder="Ingresa tu nombre completo"
+          [(ngModel)]="name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="register-email">Email:</label>
+        <input
+          type="email"
+          id="register-email"
+          name="email"
+          required
+          class="form-control"
+          placeholder="Ingresa tu email"
+          [(ngModel)]="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="register-password">Contraseña:</label>
+        <input
+          type="password"
+          id="register-password"
+          name="password"
+          required
+          class="form-control"
+          placeholder="Crea una contraseña"
+          [(ngModel)]="password"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="register-rol" >Rol:</label>
+        <input
+          type="text"
+          id="register-rol"
+          name="rol"
+          class="form-control"
+          placeholder="Ingresa el rol"
+          [(ngModel)]="rol"
+        />
+      </div>
+
+      <span class="text-red-500 !pt-4">
+        {{ error }}
+      </span>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn-primary">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+
+  <h2 class="titulo">CARGOS</h2>
+
+  <div class="modulos-grid" *ngIf="isBaseRoute">
+    <dashboard-card
+      titulo="CREAR CARGO"
+      routerLink="crearCargo"
+      textoBoton="Crear"
+      nameIcon="add"
+    ></dashboard-card>
+
+    <dashboard-card
+      titulo="LISTAR CARGOS"
+      routerLink="listarCargo"
+      textoBoton="Listar"
+      nameIcon="list"
+    ></dashboard-card>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

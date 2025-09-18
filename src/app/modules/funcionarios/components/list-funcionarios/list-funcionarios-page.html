@@ -1,0 +1,128 @@
+<div class="flex flex-col items-center justify-center w-full">
+  <div class="flex flex-row items-center justify-center w-full gap-4 !mb-4">
+    <button (click)="getFuncionarios()" class="bg-gray-200 !px-4 !py-2 rounded-md cursor-pointer">
+      Todos
+    </button>
+    <button
+      (click)="loadFuncionariosActivos()"
+      class="bg-green-200 !px-4 !py-2 rounded-md cursor-pointer"
+    >
+      Activos
+    </button>
+    <input
+      type="text"
+      placeholder="Buscar por ID"
+      #idInput
+      class="border !px-2 !py-1 rounded-md"
+      (keyup.enter)="getFuncionarioById(idInput.value)"
+    />
+    <button
+      (click)="getFuncionarioById(idInput.value)"
+      class="bg-[#002d72] hover:bg-blue-700 text-white !px-3 !py-2 rounded-lg cursor-pointer"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+  <div class="max-h-[500px] overflow-y-auto bg-white shadow-md rounded-lg w-400 !p-6 lg:w-250">
+    <table class="w-238 divide-y divide-gray-200 text-sm">
+      <thead class="bg-[#002d72] h-6 text-left text-sm font-semibold text-white uppercase !px-3">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Tipo de Operario</th>
+          <th>Estado</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let funcionario of funcionarios" class="hover:bg-gray-50 transition-colors">
+          <td class="font-medium text-gray-900">{{ funcionario.identificacion }}</td>
+          <td class="text-gray-900">{{ funcionario.nombre_completo }}</td>
+          <td class="text-gray-700">{{ funcionario.Cargo?.name ?? 'Sin cargo asignado' }}</td>
+          <td class="text-gray-700">{{ funcionario.tipoOperario }}</td>
+          <td>{{ funcionario.estado }}</td>
+          <td>
+            <button (click)="abrirModal(funcionario)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Mensaje cuando no hay resultados -->
+    <div *ngIf="funcionarios.length === 0" class="text-center py-8 text-gray-500">
+      No se encontraron funcionarios
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mostrarModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="text-[#002d72] text-bold">Actualizar Funcionario</h2>
+      <button class="close-button" (click)="cerrarModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="actualizarFuncionario()">
+        <div class="form-group">
+          <label for="nombre_completo">Nombre Completo</label>
+          <input
+            type="text"
+            id="nombre_completo"
+            name="nombre_completo"
+            [(ngModel)]="funcionarioSeleccionado!.nombre_completo"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="identificacion">Identificación</label>
+          <input
+            type="text"
+            id="identificacion"
+            name="identificacion"
+            [(ngModel)]="funcionarioSeleccionado!.identificacion"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="tipoOperario">Tipo Operario</label>
+          <select
+            id="tipoOperario"
+            name="tipoOperario"
+            [(ngModel)]="funcionarioSeleccionado!.tipoOperario"
+            required
+          >
+            <option value="Planta">Planta</option>
+            <option value="Temporal">Temporal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cargo">Cargo</label>
+          <select id="cargo" name="cargo" [(ngModel)]="funcionarioSeleccionado!.Cargo" required [compareWith]="compararCargos">
+            <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+              {{ cargo.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select id="estado" name="estado" [(ngModel)]="funcionarioSeleccionado!.estado" required>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+        <button type="submit" class="bg-[#002d72] !px-4 !py-2 rounded-md cursor-pointer text-white">Guardar Cambios</button>
+      </form>
+      <div
+        *ngIf="apiMessage"
+        class="api-message"
+        [ngClass]="{ success: apiSuccess, error: !apiSuccess }"
+      >
+        {{ apiMessage }}
+      </div>
+    </div>
+  </div>
+</div>
